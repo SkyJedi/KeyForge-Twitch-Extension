@@ -1,5 +1,7 @@
 .App {
 	font-family: Arial, Helvetica, sans-serif;
+	text-align: right;
+	text-align: -webkit-right;
 }
 
 .App-light {

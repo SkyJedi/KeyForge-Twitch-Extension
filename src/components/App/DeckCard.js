@@ -13,19 +13,20 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 const styles = theme => ({
 	root: {
 		color: 'black',
-		width: '100%',
-		maxWidth: 360,
+		width: '300px',
+		maxHeight: 200,
+		overflow: 'auto',
 		backgroundColor: theme.palette.background.paper,
 	},
 	nested: {
 		paddingLeft: theme.spacing.unit * 1.5,
 	},
 	token: {
-		height: '0.9rem',
-		marginRight: '0.1rem',
-		marginLeft: '0.1rem',
+		height: '0.9em',
+		marginRight: '0.1em',
+		marginLeft: '0.1em',
 		verticalAlign: 'text-top'
-	},
+	}
 });
 
 class DeckCard extends React.Component {

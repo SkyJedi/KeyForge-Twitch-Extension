@@ -60,9 +60,9 @@ export default class App extends React.Component {
 	render() {
 		if (this.state.finishedLoading && this.state.isVisible) {
 			return (
-				<div className="App">
+				<div className="App" style={{zoom: `${this.props.type === 'component' ? 3 : 1}`}}>
 					<div className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}>
-						<DeckCard data={this.state.data}/>
+						<DeckCard type={this.props.type} data={this.state.data}/>
 					</div>
 				</div>
 			)
