@@ -1,16 +1,14 @@
+import {get} from 'lodash-es';
 import React from 'react';
-import Authentication from '../../util/Authentication/Authentication';
 import DeckCard from './DeckCard';
 import './App.css'
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.Authentication = new Authentication();
 		//if the extension is running on twitch or dev rig, set the shorthand here. otherwise, set to null.
 		this.twitch = window.Twitch ? window.Twitch.ext : null;
 		this.state = {
-			finishedLoading: false,
 			theme: 'light',
 			isVisible: true,
 			data: []
@@ -29,10 +27,6 @@ export default class App extends React.Component {
 
 	componentWillMount() {
 		if (this.twitch) {
-			this.twitch.onAuthorized(auth => {
-				this.Authentication.setToken(auth.token, auth.userId);
-				if (!this.state.finishedLoading) this.setState({finishedLoading: true});
-			});
 
 			this.twitch.listen('broadcast', (target, contentType, body) => {
 				const data = JSON.parse(body);
@@ -44,10 +38,10 @@ export default class App extends React.Component {
 			this.twitch.onContext((context, delta) => this.contextUpdate(context, delta));
 
 			this.twitch.configuration.onChanged(() => {
-				const config = this.twitch.configuration.broadcaster;
-				const data = JSON.parse(config.content);
+				const content = get(this.twitch, 'configuration.broadcaster.content', []);
+				const data = JSON.parse(content);
 				this.setState({data});
-			})
+			});
 		}
 	}
 
@@ -58,7 +52,7 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		if (this.state.finishedLoading && this.state.isVisible) {
+		if (this.state.isVisible) {
 			return (
 				<div className="App" style={{zoom: `${this.props.type === 'component' ? 3 : 1}`}}>
 					<div className={this.state.theme === 'light' ? 'App-light' : 'App-dark'}>
@@ -66,12 +60,6 @@ export default class App extends React.Component {
 					</div>
 				</div>
 			)
-		} else {
-			return (
-				<div className="App">
-				</div>
-			)
-		}
-
+		} else return <div className="App"/>
 	}
 }

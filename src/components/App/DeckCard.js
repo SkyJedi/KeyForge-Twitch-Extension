@@ -14,9 +14,11 @@ const styles = theme => ({
 	root: {
 		color: 'black',
 		width: '300px',
-		maxHeight: 200,
-		overflow: 'auto',
 		backgroundColor: theme.palette.background.paper,
+	},
+	component: {
+		maxHeight: 300,
+		overflow: 'auto',
 	},
 	nested: {
 		paddingLeft: theme.spacing.unit * 1.5,
@@ -33,10 +35,10 @@ class DeckCard extends React.Component {
 	state = {};
 
 	render() {
-		const {classes, data} = this.props;
+		const {classes, data, type} = this.props;
 
 		return (
-			<List dense={true} className={classes.root}>
+			<List dense={true} className={`${classes.root} ${classes[type]}`}>
 				{data.map((data, index) =>
 					<div key={index}>
 						<ListItem button onClick={() => this.setState({[index]: !this.state[index]})}>
@@ -88,6 +90,7 @@ class DeckCard extends React.Component {
 								<ListItem className={classes.nested}>
 									<ListItemText primary='AERC' secondary={get(data, 'dok.AERC', 'AERC Not Found')}/>
 								</ListItem>
+								{this.props.type === 'panel' &&
 								<ListItem className={classes.nested}>
 									<ListItemText primary='Links'
 												  secondary={
@@ -114,6 +117,7 @@ class DeckCard extends React.Component {
 													  </React.Fragment>
 												  }/>
 								</ListItem>
+								}
 							</List>
 						</Collapse>
 					</div>)

@@ -10,10 +10,11 @@ export const fetchDeck = async (name) => {
 		axios.get(encodeURI(`${keys.proxy}${keys.deckSearchAPI}?search=${name}`))
 			.then(async response => {
 				if (get(response, 'data.count') > 0) {
-					const {cards: cardList, ...deck} = get(response, 'data.data[0]', false);
-					const cards = cardList.map(card => all_cards.find(o => o.id === card));
-					const cardStats = getCardStats(cards);
-					const ADHD = fetchDeckADHD(deck.id), dok = fetchDoK(deck.id);
+					const {cards: cardList, ...deck} = get(response, 'data.data[0]', false),
+						cards = cardList.map(card => all_cards.find(o => o.id === card)),
+						cardStats = getCardStats(cards),
+						ADHD = fetchDeckADHD(deck.id),
+						dok = fetchDoK(deck.id);
 					Promise.all([cardStats, ADHD, dok]).then(([cardStats, ADHD, dok]) => resolve({deck, cardStats, ADHD, dok}));
 				} else resolve(false);
 			}).catch(console.error);
