@@ -37,6 +37,8 @@ class DeckCard extends React.Component {
 	render() {
 		const {classes, data, type} = this.props;
 
+		if (0 >= data.length) return <div style={{textAlign: 'center'}}>No Achrons to Display</div>;
+
 		return (
 			<List dense={true} className={`${classes.root} ${classes[type]}`}>
 				{data.map((data, index) =>

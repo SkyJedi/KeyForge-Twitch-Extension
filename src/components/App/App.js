@@ -25,7 +25,7 @@ export default class App extends React.Component {
 		this.setState({isVisible})
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		if (this.twitch) {
 
 			this.twitch.listen('broadcast', (target, contentType, body) => {
@@ -38,11 +38,11 @@ export default class App extends React.Component {
 			this.twitch.onContext((context, delta) => this.contextUpdate(context, delta));
 
 			this.twitch.configuration.onChanged(() => {
-				const content = get(this.twitch, 'configuration.broadcaster.content', []);
+				const content = get(this.twitch, 'configuration.broadcaster.content', '[]');
 				const data = JSON.parse(content);
 				this.setState({data});
 			});
-		}
+		} else console.log('Twitch helper not loading!');
 	}
 
 	componentWillUnmount() {
