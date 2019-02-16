@@ -1,12 +1,20 @@
 const fs = require('fs');
 const path = require("path");
 const webpack = require("webpack");
+const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // defines where the bundle file will live
-const bundlePath = path.resolve(__dirname, "dist/");
+const bundlePath = path.resolve(__dirname, "build/");
 
 module.exports = (_env, argv) => {
+	const env = dotenv.config().parsed;
+
+	const envKeys = Object.keys(env).reduce((prev, next) => {
+		prev[`process.env.${next}`] = JSON.stringify(env[next]);
+		return prev;
+	}, {});
+
 	let entryPoints = {
 		VideoComponent: {
 			path: "./src/VideoComponent.js",
@@ -44,7 +52,8 @@ module.exports = (_env, argv) => {
 
 	// edit webpack plugins here!
 	let plugins = [
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.DefinePlugin(envKeys),
 	];
 
 	for (name in entryPoints) {

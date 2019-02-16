@@ -1,6 +1,6 @@
 {
   "name": "keyforge-twitch-extension",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "",
   "main": "",
   "scripts": {
@@ -8,7 +8,8 @@
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development",
     "cert": "./bin/generate_cert.sh server",
-    "host": "webpack-dev-server --mode development --devrig"
+    "zip": "cd build/ && bestzip ../../Downloads/$npm_package_name-$npm_package_version.zip *",
+    "package": "npm run build && npm run zip"
   },
   "keywords": [],
   "author": "",
@@ -35,15 +36,21 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "@material-ui/core": "^3.9.1",
-    "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
+    "bestzip": "^2.1.2",
+    "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
+    "dotenv": "^6.2.0",
+    "firebase": "^5.8.3",
     "jsonwebtoken": "^8.3.0",
     "lodash-es": "^4.17.11",
     "node-fetch": "^2.3.0",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "reactstrap": "^7.1.0",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "jest": {
     "setupFiles": [

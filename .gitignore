@@ -65,6 +65,7 @@ typings/
 
 # Finalized files
 dist/
+build/
 .idea/
 yarn.lock
 package-lock.json
