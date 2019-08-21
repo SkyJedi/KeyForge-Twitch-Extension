@@ -21,7 +21,8 @@ class Streamer extends React.Component {
 		this.setState({archonName: 'Updating...'});
 		const deck = await fetchDeck(search);
 		if (deck) {
-			channelRef.add({...deck, user: token}).catch(console.error);
+
+			channelRef.add({...deck, user: token, channel}).catch(console.error);
 			this.setState({archonName: ''})
 		}
 		else this.setState({archonName: 'Error, deck not found'});
@@ -37,9 +38,9 @@ class Streamer extends React.Component {
 		const {archonName} = this.state;
 		return <React.Fragment>
 			<ListGroup>
-				<ListGroupItem color={theme} className='text-center p-1 text-capitalize'>Archons</ListGroupItem>
+				<ListGroupItem className={`text-center p-1 text-capitalize ${theme === 'dark' ? 'text-light' : 'text-dark'} bg-transparent`}>Archons</ListGroupItem>
 				{Object.keys(decks).map(key =>
-					<ListGroupItem className='listText p-1' color={theme} key={key}>
+					<ListGroupItem className={`listText p-1 ${theme === 'dark' ? 'text-light' : 'text-dark'} bg-transparent`}  key={key}>
 						<Row className='justify-content-between align-items-center'>
 							<Col>
 								{get(decks, `${key}.deck.name`, '')}
@@ -53,10 +54,10 @@ class Streamer extends React.Component {
 			</ListGroup>
 			<br/>
 			<InputGroup>
-				<Input placeholder='Archon Name' name='archonName'
+				<Input className={`${theme === 'dark' ? 'text-light' : 'text-dark'} bg-transparent`} placeholder='Archon Name' name='archonName'
 					   value={archonName} onChange={(event) => this.setState({archonName: event.target.value})}/>
 				<InputGroupAddon addonType="append">
-					<Button onClick={(event) => this.saveArchon(event)}>Add</Button>
+					<Button className={`${theme === 'dark' ? 'text-light' : 'text-dark'} bg-transparent`} onClick={(event) => this.saveArchon(event)}>Add</Button>
 				</InputGroupAddon>
 			</InputGroup>
 		</React.Fragment>

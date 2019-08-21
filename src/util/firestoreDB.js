@@ -10,8 +10,6 @@ const config = {
 	messagingSenderId: process.env.messagingSenderId
 };
 firebase.initializeApp(config);
-const firestore = firebase.firestore();
-firestore.enablePersistence({experimentalTabSynchronization: true}).catch(console.error);
 
 export const db = firebase.firestore();
 

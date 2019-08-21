@@ -7,7 +7,7 @@ class Viewer extends React.Component {
 	render() {
 		const {theme, decks, type} = this.props;
 		return (
-			<div className={`App App-${theme} ${type}`}>
+			<div className={`App App-${theme} ${type} ${theme === 'dark' ? 'text-light' : 'text-dark'} bg-transparent`}>
 				<DeckList type={type} decks={decks}/>
 			</div>
 		)

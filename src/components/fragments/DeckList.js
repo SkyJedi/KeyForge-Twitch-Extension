@@ -11,7 +11,7 @@ class DeckList extends React.Component {
 
 		return (
 			<ListGroup className={`type`}>
-				<ListGroupItem color={theme} className='text-center font-weight-bold p-1'>OUR KEYFORGE ARCHONS</ListGroupItem>
+				<ListGroupItem className={`text-center font-weight-bold p-1 ${theme === 'dark' ? 'text-light' : 'text-dark'} bg-transparent`}>OUR KEYFORGE ARCHONS</ListGroupItem>
 				{Object.keys(decks).map(key => <DeckListItem data={decks[key]} type={type} key={key}/>)}
 			</ListGroup>
 		);
